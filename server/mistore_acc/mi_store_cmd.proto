@@ -1,0 +1,135 @@
+/*****************    pb规范   *******************************************
+1.用pascal规则(每个单词首字段都用大写)命名message消息类型
+2.用camel规则(第一个字母小写，余下单词首字母大写)命名字段名
+3.全大写命名extend消息类型的字段名
+4.string统一采用utf8编码
+5.除unixtime、32位网络IP用fixed32外，其余无符号都用uint32，有符号用sint32
+6.result用无符号:0代表成功，错误码全局分段管理,高24位用于分段，低8位为具体错误
+*************************************************************************/
+
+package MIStore;
+
+/*+++++++++++ GET operation +++++++*/
+message GetDataReq
+{
+	required uint32 ms_app_id  	= 1;
+	required bytes  ms_key		= 2;
+}
+
+message GetDataResp
+{
+	optional bytes 	ms_value	= 1;
+	optional uint64 ms_timestamp= 2;	//精确到微秒
+}
+/*----------- GET operation -------*/
+
+
+
+/*+++++++++++ MULTIGET operation +++++++*/
+//DO NOT support multi key with timestamp req
+message MultiGetDataReq
+{
+	required uint32 ms_app_id  	= 1;
+	repeated bytes  ms_key		= 2;
+}
+
+message MultiGetDataResp
+{
+	repeated KeyValuePair ms_kv	= 1;
+}
+/*----------- MULTIGET operation -------*/
+
+
+/*+++++++++++ SET operation +++++++*/
+message SetDataReq
+{
+	required uint32 ms_app_id   = 1;
+	required bytes  ms_key		= 2;
+	required bytes 	ms_value	= 3;
+	optional uint64 ms_timestamp= 4;
+}
+
+message SetDataResp
+{
+	optional bytes  ms_key		= 1;
+}
+/*----------- SET operation -------*/
+
+
+/*+++++++++++ SETNX operation +++++++*/
+message SetNXDataReq
+{
+	required uint32 ms_app_id   = 1;
+	required bytes  ms_key		= 2;
+	required bytes 	ms_value	= 3;
+}
+
+message SetNXDataResp
+{
+	optional bytes  ms_key		= 1;
+}
+/*----------- SET operation -------*/
+
+/*+++++++++++ DELETE operation +++++++*/
+message DelDataReq
+{
+	required uint32 ms_app_id  	= 1;
+	required bytes  ms_key		= 2;
+}
+
+message DelDataResp
+{
+	optional bytes  ms_key		= 1;
+}
+/*----------- DELETE operation -------*/
+
+
+/*+++++++++++ SETOPTION operation +++++++*/
+message SetOptionReq
+{
+	required uint32 ms_app_id   = 1;
+	required bytes  ms_option	= 2;
+	required bytes  ms_key		= 3;
+	optional bytes 	ms_opt_value= 4;
+}
+
+message SetOptionResp
+{
+	optional bytes 	ms_key		= 1;
+}
+/*----------- SETOPTION operation -------*/
+
+/*+++++++++++ GETOPTION operation +++++++*/
+message GetOptionReq
+{
+	required uint32 ms_app_id   = 1;
+	required bytes  ms_option	= 2;
+	required bytes  ms_key		= 3;
+}
+
+message GetOptionResp
+{
+	optional bytes 	ms_result	= 1;
+}
+/*----------- GETOPTION operation -------*/
+
+/*+++++++++++ LIST operation +++++++*/
+message OpListReq
+{
+	required uint32 ms_app_id   = 1;
+	required bytes  ms_option	= 2;
+	required bytes  ms_key		= 3;
+	repeated bytes  ms_paras	= 4;
+}
+
+message OpListResp
+{
+	repeated bytes 	ms_result	= 1;
+}
+/*----------- LIST operation -------*/
+
+message KeyValuePair
+{
+	required bytes  ms_key		= 1;
+	required bytes 	ms_value	= 2;
+}

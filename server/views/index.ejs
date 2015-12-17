@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="application/javascript" src="/javascripts/lib/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+  </body>
+<script>
+  //测试nodejs集群负载功能。
+  var url = 'http://localhost:3000/api/zx/';
+  for(var i=0;i<20;i++){
+    $.ajax({
+      url:url+i,
+      dataType:'json',
+      cache:false,
+      success:function(xhr,text){
+
+      },
+      error:function(){
+
+      }
+
+    })
+  }
+
+</script>
+</html>

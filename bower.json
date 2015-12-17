@@ -1,0 +1,22 @@
+{
+  "name": "migc-cms-zx",
+  "version": "0.0.0",
+  "authors": [
+    "levin"
+  ],
+  "description": "资讯CMS系统",
+  "keywords": [
+    "zx"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.1.4"
+  }
+}

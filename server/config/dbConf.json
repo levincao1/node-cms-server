@@ -1,0 +1,7 @@
+{
+  "database": "new_zx",
+  "user": "levin",
+  "password": "123456",
+  "host": "localhost",
+  "connectionLimit":10
+}
